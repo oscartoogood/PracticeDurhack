@@ -85,7 +85,7 @@ with EmissionsTracker() as tracker:
         def checkIfCompleted(self):
             deckEmpty = len(self.deck.cards)==0
             pilesEmpty = all(len(pile.cards)==0 for pile in self.playPiles)
-            blocksFull = all(len(pile.cards)==13 for suit,pile in self.blockPiles.items())
+            blocksFull = all(len(pile.cards)==13 for pile in self.blockPiles.values())
             return deckEmpty and pilesEmpty and blocksFull
             
         def addToBlock(self, card):
