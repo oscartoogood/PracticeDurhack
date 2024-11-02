@@ -39,7 +39,7 @@ with EmissionsTracker() as tracker:
         signs = [sign1, sign2, sign3, sign4]
 
         list_of_values = values
-
+        #This seems useless
         print("The cards in your deck are:")
         for i in list_of_values:
             for x in signs:
