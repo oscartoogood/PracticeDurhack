@@ -144,8 +144,8 @@ with EmissionsTracker() as tracker:
                         if verbose:
                             print("Moving {0} from Deck to Empty Pile".format(str(card_added)))
                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                 #   print("Pile has cards")
             
             #4: add drawn card to playPiles 
             for pile in self.playPiles:
@@ -156,8 +156,8 @@ with EmissionsTracker() as tracker:
                         if verbose:
                             print("Moving {0} from Deck to Pile".format(str(card_added)))
                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                 #   print("Pile has cards")
                             
             #5: move around cards in playPiles
             for pile1 in self.playPiles:
@@ -189,8 +189,8 @@ with EmissionsTracker() as tracker:
                                                 ", ".join([str(card) for card in cards_to_transfer])
                                                                                              ))
                                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                   # print("Pile has cards")
             return False
         
                     
@@ -230,15 +230,15 @@ with EmissionsTracker() as tracker:
 
         # define the bogosort function
 
-        def bogosort(self):
-            arr_values = [card.value for card in self.deck.cards]
-            while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
-                random.shuffle(arr_values)
-            sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
-            self.deck.cards = sorted_cards
-            print("Sorted Cards:")
-            for card in sorted_cards:
-                print(card)
+        #def bogosort(self):
+         #   arr_values = [card.value for card in self.deck.cards]
+          #  while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
+           #     random.shuffle(arr_values)
+            #sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
+            #self.deck.cards = sorted_cards
+            #print("Sorted Cards:")
+            #for card in sorted_cards:
+             #   print(card)
 
     def main():
 
@@ -252,8 +252,8 @@ with EmissionsTracker() as tracker:
         else:
             print("Sorry, you did not win")
 
-        sorted_cards = thisGame.bogosort()
-        print("Sorted cards:", sorted_cards)
+        #sorted_cards = thisGame.bogosort()
+        #print("Sorted cards:", sorted_cards)
         return
     
     main()
