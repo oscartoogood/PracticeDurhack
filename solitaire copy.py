@@ -3,7 +3,6 @@ from codecarbon import EmissionsTracker
 import pprint
 import random
 
-import itertools as it
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -106,7 +105,7 @@ with EmissionsTracker() as tracker:
                 else:
                     return False
         
-        def takeTurn(self, verbose=False):
+        def takeTurn(self):
                 
             #Pre: flip up unflipped pile end cards -> do this automatically
             [pile.cards[0].flip() for pile in self.playPiles if len(pile.cards)>0 and not pile.cards[0].flipped]
@@ -115,8 +114,8 @@ with EmissionsTracker() as tracker:
             for pile in self.playPiles:
                 if len(pile.cards) > 0 and self.addToBlock(pile.cards[0]):
                     card_added = pile.cards.pop(0)
-                    if verbose:
-                        print("Adding play pile card to block: {0}".format(str(card_added)))
+                    # if verbose:
+                    #     print("Adding play pile card to block: {0}".format(str(card_added)))
                     return True
                 #else:
                     #print("Pile has cards")
@@ -124,8 +123,8 @@ with EmissionsTracker() as tracker:
             #2: check if cards in deck can be added
             if self.addToBlock(self.deck.getFirstCard()):
                 card_added = self.deck.takeFirstCard()
-                if verbose:
-                    print("Adding card from deck to block: {0}".format(str(card_added)))
+                # if verbose:
+                #     print("Adding card from deck to block: {0}".format(str(card_added)))
                 return True
             
             #3: move kings to open piles
@@ -135,18 +134,18 @@ with EmissionsTracker() as tracker:
                         if len(pile2.cards)>1 and pile2.cards[0].value == "K":
                             card_added = pile2.cards.pop(0)
                             pile.addCard(card_added)
-                            if verbose:
-                                print("Moving {0} from Pile to Empty Pile".format(str(card_added)))
+                            # if verbose:
+                            #     print("Moving {0} from Pile to Empty Pile".format(str(card_added)))
                             return True
                     
                     if self.deck.getFirstCard() is not None and self.deck.getFirstCard().value == "K":
                         card_added = self.deck.takeFirstCard()
                         pile.addCard(card_added)
-                        if verbose:
-                            print("Moving {0} from Deck to Empty Pile".format(str(card_added)))
+                        # if verbose:
+                        #     print("Moving {0} from Deck to Empty Pile".format(str(card_added)))
                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                 #   print("Pile has cards")
             
             #4: add drawn card to playPiles 
             for pile in self.playPiles:
@@ -154,11 +153,11 @@ with EmissionsTracker() as tracker:
                     if self.checkCardOrder(pile.cards[0],self.deck.getFirstCard()):
                         card_added = self.deck.takeFirstCard()
                         pile.addCard(card_added) 
-                        if verbose:
-                            print("Moving {0} from Deck to Pile".format(str(card_added)))
+                        # if verbose:
+                        #     print("Moving {0} from Deck to Pile".format(str(card_added)))
                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                 #   print("Pile has cards")
                             
             #5: move around cards in playPiles
             for pile1 in self.playPiles:
@@ -175,23 +174,23 @@ with EmissionsTracker() as tracker:
                                     if pile2_downcard_count < pile1_downcard_count:
                                         [pile2.cards.insert(0,card) for card in reversed(cards_to_transfer)]
                                         pile1.cards = pile1.cards[transfer_cards_size:]
-                                        if verbose:
-                                            print("Moved {0} cards between piles: {1}".format(
-                                                transfer_cards_size,
-                                                ", ".join([str(card) for card in cards_to_transfer])
-                                                                                             ))
+                                        # if verbose:
+                                        #     print("Moved {0} cards between piles: {1}".format(
+                                        #         transfer_cards_size,
+                                        #         ", ".join([str(card) for card in cards_to_transfer])
+                                        #                                                      ))
                                         return True
                                     elif pile1_downcard_count==0 and len(cards_to_transfer) == len(pile1.cards):
                                         [pile2.cards.insert(0,card) for card in reversed(cards_to_transfer)]
                                         pile1.cards = []
-                                        if verbose:
-                                            print("Moved {0} cards between piles: {1}".format(
-                                                transfer_cards_size,
-                                                ", ".join([str(card) for card in cards_to_transfer])
-                                                                                             ))
+                                        # if verbose:
+                                        #     print("Moved {0} cards between piles: {1}".format(
+                                        #         transfer_cards_size,
+                                        #         ", ".join([str(card) for card in cards_to_transfer])
+                                        #                                                      ))
                                         return True
-                else:
-                    print("Pile has cards")
+                #else:
+                   # print("Pile has cards")
             return False
         
                     
@@ -201,10 +200,10 @@ with EmissionsTracker() as tracker:
             if not draw:
                 self.deck.cache = []
         
-            turnResult = self.takeTurn(verbose=verbose)
+            turnResult = self.takeTurn()
         
             if turnResult:
-                self.simulate(verbose=verbose)
+                self.simulate()
                     
             else:
                 #End: draw from deck
@@ -231,15 +230,15 @@ with EmissionsTracker() as tracker:
 
         # define the bogosort function
 
-        # def bogosort(self):
-        #     arr_values = [card.value for card in self.deck.cards]
-        #     while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
-        #         random.shuffle(arr_values)
-        #     sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
-        #     self.deck.cards = sorted_cards
-        #     print("Sorted Cards:")
-        #     for card in sorted_cards:
-        #         print(card)
+        #def bogosort(self):
+         #   arr_values = [card.value for card in self.deck.cards]
+          #  while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
+           #     random.shuffle(arr_values)
+            #sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
+            #self.deck.cards = sorted_cards
+            #print("Sorted Cards:")
+            #for card in sorted_cards:
+             #   print(card)
 
     def main():
 
@@ -253,8 +252,8 @@ with EmissionsTracker() as tracker:
         else:
             print("Sorry, you did not win")
 
-        # sorted_cards = thisGame.bogosort()
-        # print("Sorted cards:", sorted_cards)
+        #sorted_cards = thisGame.bogosort()
+        #print("Sorted cards:", sorted_cards)
         return
     
     main()
