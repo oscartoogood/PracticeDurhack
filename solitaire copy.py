@@ -3,6 +3,7 @@ from codecarbon import EmissionsTracker
 import pprint
 import random
 
+import itertools as it
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -112,7 +113,7 @@ with EmissionsTracker() as tracker:
          
             #1: check if there are any play pile cards you can play to block piles
             for pile in self.playPiles:
-                if len(pile.cards) > 0 and self.addToBlock(pile.cards[0]):
+                if self.addToBlock(pile.cards[0]):
                     card_added = pile.cards.pop(0)
                     if verbose:
                         print("Adding play pile card to block: {0}".format(str(card_added)))
@@ -230,15 +231,15 @@ with EmissionsTracker() as tracker:
 
         # define the bogosort function
 
-        def bogosort(self):
-            arr_values = [card.value for card in self.deck.cards]
-            while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
-                random.shuffle(arr_values)
-            sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
-            self.deck.cards = sorted_cards
-            print("Sorted Cards:")
-            for card in sorted_cards:
-                print(card)
+        # def bogosort(self):
+        #     arr_values = [card.value for card in self.deck.cards]
+        #     while not all(arr_values[i] <= arr_values[i + 1] for i in range(len(arr_values) - 1)):
+        #         random.shuffle(arr_values)
+        #     sorted_cards = [Card(value, suit) for value, suit in zip(arr_values, [card.suit for card in self.deck.cards])]
+        #     self.deck.cards = sorted_cards
+        #     print("Sorted Cards:")
+        #     for card in sorted_cards:
+        #         print(card)
 
     def main():
 
@@ -252,8 +253,8 @@ with EmissionsTracker() as tracker:
         else:
             print("Sorry, you did not win")
 
-        sorted_cards = thisGame.bogosort()
-        print("Sorted cards:", sorted_cards)
+        # sorted_cards = thisGame.bogosort()
+        # print("Sorted cards:", sorted_cards)
         return
     
     main()
