@@ -3,6 +3,7 @@ from codecarbon import EmissionsTracker
 import pprint
 import random
 
+from itertools import filterfalse
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -128,22 +129,32 @@ with EmissionsTracker() as tracker:
                 return True
             
             #3: move kings to open piles
-            for pile in self.playPiles:
-                if len(pile.cards)==0: #pile has no cards
-                    for pile2 in self.playPiles:
-                        if len(pile2.cards)>1 and pile2.cards[0].value == "K":
-                            card_added = pile2.cards.pop(0)
-                            pile.addCard(card_added)
-                            # if verbose:
-                            #     print("Moving {0} from Pile to Empty Pile".format(str(card_added)))
-                            return True
+            pile1 = list(filterfalse(lambda x: len(x.cards) != 0, self.playPiles)) #pile has no cards
+            pile2 = list(filterfalse(lambda x: len(x.cards) <= 1 or x.cards[0].value != "K", self.playPiles))
+            if len(pile1)!=0:
+                for pile in pile2:
+                    card_added = pile.cards.pop(0)
+                    pile1[0].addCard(card_added)
+                    pile1.pop(0)
+                    pile2.pop(0)
+                    if len(pile1)==0:
+                        break
                     
-                    if self.deck.getFirstCard() is not None and self.deck.getFirstCard().value == "K":
-                        card_added = self.deck.takeFirstCard()
-                        pile.addCard(card_added)
-                        # if verbose:
-                        #     print("Moving {0} from Deck to Empty Pile".format(str(card_added)))
-                        return True
+
+                        # for pile2 in self.playPiles:
+                        #     if len(pile2.cards)>1 and pile2.cards[0].value == "K":
+                        #         card_added = pile2.cards.pop(0)
+                        #         pile.addCard(card_added)
+                        #         # if verbose:
+                        #         #     print("Moving {0} from Pile to Empty Pile".format(str(card_added)))
+                        #         return True
+                        
+                if self.deck.getFirstCard() is not None and self.deck.getFirstCard().value == "K":
+                    card_added = self.deck.takeFirstCard()
+                    pile1[0].addCard(card_added)
+                    # if verbose:
+                    #     print("Moving {0} from Deck to Empty Pile".format(str(card_added)))
+                    return True
                 #else:
                  #   print("Pile has cards")
             
@@ -241,7 +252,6 @@ with EmissionsTracker() as tracker:
              #   print(card)
 
     def main():
-
         thisGame = Game()
         thisGame.simulate(verbose=True)
         print()
