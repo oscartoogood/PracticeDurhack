@@ -40,11 +40,11 @@ with EmissionsTracker() as tracker:
 
         list_of_values = values
         #This seems useless
-        print("The cards in your deck are:")
-        for i in list_of_values:
-            for x in signs:
-                for y in colors:
-                    print("Card: " + i + " Color: " + y + " Symbol: " + x)
+        #print("The cards in your deck are:")
+        #for i in list_of_values:
+        #    for x in signs:
+        #        for y in colors:
+        #            print("Card: " + i + " Color: " + y + " Symbol: " + x)
 
             
     
@@ -117,8 +117,8 @@ with EmissionsTracker() as tracker:
                     if verbose:
                         print("Adding play pile card to block: {0}".format(str(card_added)))
                     return True
-                else:
-                    print("Pile has cards")
+                #else:
+                    #print("Pile has cards")
             
             #2: check if cards in deck can be added
             if self.addToBlock(self.deck.getFirstCard()):
