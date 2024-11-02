@@ -113,7 +113,7 @@ with EmissionsTracker() as tracker:
          
             #1: check if there are any play pile cards you can play to block piles
             for pile in self.playPiles:
-                if self.addToBlock(pile.cards[0]):
+                if len(pile.cards) > 0 and self.addToBlock(pile.cards[0]):
                     card_added = pile.cards.pop(0)
                     if verbose:
                         print("Adding play pile card to block: {0}".format(str(card_added)))
